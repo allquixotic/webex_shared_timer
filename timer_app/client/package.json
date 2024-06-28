@@ -1,0 +1,8 @@
+{
+  "name": "client",
+  "module": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "@webex/embedded-app-sdk": "2.1.8"
+  }
+}
