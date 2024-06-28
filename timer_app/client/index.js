@@ -250,7 +250,14 @@ function stopClientSideTimer() {
     clientTimerInterval = null;
 }
 
-function clearTimer(do_emit = false) {
+function addTime(minutesToAdd) {
+    console.log(`Adding ${minutesToAdd} minutes to the timer`);
+    stopClientSideTimer();
+    socket.emit('add_time', { minutes: minutesToAdd, sessionId: meetingID });
+    if (isRunning) {
+        startClientTimer();
+    }
+}
     console.log('clearTimer called');
     updateTimerDisplay(0, 0);
     if (do_emit) {
@@ -387,6 +394,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     elements.pinInput.addEventListener('input', function (e) {
         this.value = this.value.replace(/\D/g, '');
     });
+
+    elements.add15mBtn.addEventListener('click', () => addTime(15));
+    elements.add20mBtn.addEventListener('click', () => addTime(20));
+    elements.add60mBtn.addEventListener('click', () => addTime(60));
 
     elements.lockControlsBtn.addEventListener('click', function () {
         elements.pinModal.style.display = "inline-block";
