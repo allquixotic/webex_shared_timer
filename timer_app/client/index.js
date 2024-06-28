@@ -258,6 +258,7 @@ function addTime(minutesToAdd) {
         startClientTimer();
     }
 }
+function clearTimer(do_emit = false) {
     console.log('clearTimer called');
     updateTimerDisplay(0, 0);
     if (do_emit) {
