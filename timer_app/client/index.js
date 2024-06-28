@@ -261,6 +261,15 @@ function clearTimer(do_emit = false) {
     stopClientSideTimer();
 }
 
+function addTime(minutesToAdd) {
+    console.log(`Adding ${minutesToAdd} minutes to the timer`);
+    stopClientSideTimer();
+    socket.emit('add_time', { minutes: minutesToAdd, sessionId: meetingID });
+    if (isRunning) {
+        startClientTimer();
+    }
+}
+
 function updateLockState(locked, lockedForMe) {
     let sharedTimerControls = document.querySelectorAll('#sharedTimerContainer .arrow, #sharedTimerContainer .icon-btn, #sharedTimerContainer .clear-btn, #sharedTimerContainer .reset-btn'); // Note the scoping to '#sharedTimerContainer'
 
@@ -372,6 +381,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     elements.clearBtn.addEventListener('click', () => clearTimer(true));
     elements.resetBtn.addEventListener('click', () => resetTimer());
     elements.playPauseBtn.addEventListener('click', () => toggleTimer());
+    elements.add15mBtn.addEventListener('click', () => addTime(15));
+     elements.add20mBtn.addEventListener('click', () => addTime(20));
+     elements.add60mBtn.addEventListener('click', () => addTime(60));
     elements.pinInput.addEventListener('input', function (e) {
         this.value = this.value.replace(/\D/g, '');
     });
