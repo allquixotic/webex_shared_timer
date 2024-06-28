@@ -23,6 +23,29 @@
             }
         }
 
+        .collapsible {
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        .collapse-arrow {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            cursor: pointer;
+        }
+
+        .collapsed .firstRow,
+        .collapsed #additionalButtons {
+            display: none;
+        }
+
+        .collapsed .collapse-arrow {
+            transform: rotate(180deg);
+        }
+
         .pulsating-colon {
             animation: pulsate 1s infinite;
         }
@@ -211,25 +234,28 @@
                     <button class="arrow" id="secondsDown">&#9660;</button>
                 </div>
             </section>
-            <section class="firstRow">
-                <button id="clearBtn" aria-label="Clear">
-                    <img src="/clear.svg" alt="Clear Icon">
-                </button>
-                <button id="playPauseBtn" aria-label="Play/Pause" data-running="false">
-                    <img id="playPauseIcon" src="/play.svg" alt="Play">
-                </button>
-                <button id="resetBtn" aria-label="Reset">
-                    <img src="/reset.svg" alt="Reset Icon">
-                </button>
-                <button id="lockControlsBtn" aria-label="Lock/Unlock Controls">
-                    <img id="lockSymbolIcon" src="/open_lock.svg" alt="Unlocked">
-                </button>
-            </section>
-            <section id="additionalButtons">
-                <button class="additionalButtons" id="add15mBtn">+15m</button>
-                <button class="additionalButtons" id="add20mBtn">+20m</button>
-                <button class="additionalButtons" id="add60mBtn">+60m</button>
-            </section>
+            <div id="controlsContainer" class="collapsible">
+                <span id="collapseArrow" class="collapse-arrow">&#9650;</span>
+                <section class="firstRow">
+                    <button id="clearBtn" aria-label="Clear">
+                        <img src="/clear.svg" alt="Clear Icon">
+                    </button>
+                    <button id="playPauseBtn" aria-label="Play/Pause" data-running="false">
+                        <img id="playPauseIcon" src="/play.svg" alt="Play">
+                    </button>
+                    <button id="resetBtn" aria-label="Reset">
+                        <img src="/reset.svg" alt="Reset Icon">
+                    </button>
+                    <button id="lockControlsBtn" aria-label="Lock/Unlock Controls">
+                        <img id="lockSymbolIcon" src="/open_lock.svg" alt="Unlocked">
+                    </button>
+                </section>
+                <section id="additionalButtons">
+                    <button class="additionalButtons" id="add15mBtn">+15m</button>
+                    <button class="additionalButtons" id="add20mBtn">+20m</button>
+                    <button class="additionalButtons" id="add60mBtn">+60m</button>
+                </section>
+            </div>
         </div>
         <div id="pinModal">
             <div>

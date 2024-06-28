@@ -406,5 +406,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         elements.pinError.style.display = "none"; 
     });
     socket.emit('get_timer', { sessionId: meetingID });
+
+    // Collapse functionality
+    const controlsContainer = document.getElementById('controlsContainer');
+    const collapseArrow = document.getElementById('collapseArrow');
+
+    collapseArrow.addEventListener('click', () => {
+        controlsContainer.classList.toggle('collapsed');
+    });
 });
 
