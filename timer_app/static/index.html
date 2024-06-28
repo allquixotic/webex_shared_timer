@@ -32,7 +32,7 @@
             flex-direction: column;
             align-items: center;
             border: 1px solid #ccc;
-            padding: 0.2rem;
+            padding: 0.1rem;
             border-radius: 0.5rem;
             max-width: 325px;
             margin: auto;
@@ -63,10 +63,11 @@
             width: 5rem;
         }
 
+        .additionalButtons,
         #sharedTimerContainer button {
             margin-top: -0.5rem;
             background: none;
-            border: none;
+            border: 1px solid darkgray;
             color: blue;
             cursor: pointer;
             font-size: 2rem;
@@ -86,6 +87,11 @@
             /* Specifically adjust the margin for the down buttons */
         }
 
+        .arrow {
+            background: none !important;
+            border: none !important;
+        }
+
         #sharedTimerContainer section:last-of-type {
             display: flex;
             justify-content: center;
@@ -93,11 +99,14 @@
             /* Increased gap for larger buttons */
         }
 
-        #sharedTimerContainer button img {
-            width: 100%;
-            /* Icon takes up 100% of the button width */
-            height: 100%;
-            /* Icon takes up 100% of the button height */
+        .additionalButtons {
+            font-size: 1rem !important;
+        }
+
+        .firstRow {
+            display: flex;
+            flex-direction: row !important;
+            gap: 0.5rem;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -108,7 +117,9 @@
                 filter: invert(1);
             }
 
-            #sharedTimerContainer button img {
+            .additionalButtons,
+            #sharedTimerContainer button {
+                border: 1px solid lightgray;
                 background: darkgray;
                 /* border-radius: 50%; */
                 padding: 2px;
@@ -179,13 +190,6 @@
             color: red;
             margin-bottom: 1rem;
         }
-
-        #additionalButtons {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
-        }
     </style>
 </head>
 
@@ -196,18 +200,18 @@
         <div id="sharedTimerContainer">
             <section>
                 <div>
-                    <button id="minutesUp">&#9650;</button>
+                    <button class="arrow" id="minutesUp">&#9650;</button>
                     <input id="minutes" type="text" maxlength="3" value="00">
-                    <button id="minutesDown">&#9660;</button>
+                    <button class="arrow" id="minutesDown">&#9660;</button>
                 </div>
                 <span id="msColon" class="colon">:</span>
                 <div>
-                    <button id="secondsUp">&#9650;</button>
+                    <button class="arrow" id="secondsUp">&#9650;</button>
                     <input id="seconds" type="text" maxlength="2" value="00">
-                    <button id="secondsDown">&#9660;</button>
+                    <button class="arrow" id="secondsDown">&#9660;</button>
                 </div>
             </section>
-            <section>
+            <section class="firstRow">
                 <button id="clearBtn" aria-label="Clear">
                     <img src="/clear.svg" alt="Clear Icon">
                 </button>
@@ -222,9 +226,9 @@
                 </button>
             </section>
             <section id="additionalButtons">
-                <button id="add15mBtn">+15m</button>
-                <button id="add20mBtn">+20m</button>
-                <button id="add60mBtn">+60m</button>
+                <button class="additionalButtons" id="add15mBtn">+15m</button>
+                <button class="additionalButtons" id="add20mBtn">+20m</button>
+                <button class="additionalButtons" id="add60mBtn">+60m</button>
             </section>
         </div>
         <div id="pinModal">

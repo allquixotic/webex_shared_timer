@@ -91,7 +91,7 @@ let clientTimerInterval;
 const elements = {};
 
 function setupElements() {
-    ['playPauseIcon', 'playPauseBtn', 'alarmSound', 'msColon', 'minutes', 'seconds', 'lockSymbolIcon', 'submitPin',
+    ['playPauseIcon', 'playPauseBtn', 'alarmSound', 'msColon', 'minutes', 'seconds', 'lockControlsBtn', 'lockSymbolIcon', 'submitPin',
     'unlockForMe', 'unlockForAll', 'pinInput', 'pinError', 'pinModal', 'minutesUp', 'minutesDown', 'secondsUp',
     'secondsDown', 'clearBtn', 'playPauseBtn', 'resetBtn', 'close', 'add15mBtn', 'add20mBtn', 'add60mBtn'].forEach((itm) => {
         elements[itm] = document.getElementById(itm);
@@ -250,14 +250,6 @@ function stopClientSideTimer() {
     clientTimerInterval = null;
 }
 
-function addTime(minutesToAdd) {
-    console.log(`Adding ${minutesToAdd} minutes to the timer`);
-    stopClientSideTimer();
-    socket.emit('add_time', { minutes: minutesToAdd, sessionId: meetingID });
-    if (isRunning) {
-        startClientTimer();
-    }
-}
 function clearTimer(do_emit = false) {
     console.log('clearTimer called');
     updateTimerDisplay(0, 0);
@@ -271,8 +263,17 @@ function clearTimer(do_emit = false) {
 
 function addTime(minutesToAdd) {
     console.log(`Adding ${minutesToAdd} minutes to the timer`);
-    stopClientSideTimer();
-    socket.emit('add_time', { minutes: minutesToAdd, sessionId: meetingID });
+    if(isRunning) {
+        stopClientSideTimer();
+    }
+
+    if(!currentMinutes)
+        currentMinutes = 0;
+
+    currentMinutes += minutesToAdd;
+    setTimerInput('minutes', currentMinutes);
+    elements.minutes.value = currentMinutes;
+
     if (isRunning) {
         startClientTimer();
     }
@@ -395,10 +396,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     elements.pinInput.addEventListener('input', function (e) {
         this.value = this.value.replace(/\D/g, '');
     });
-
-    elements.add15mBtn.addEventListener('click', () => addTime(15));
-    elements.add20mBtn.addEventListener('click', () => addTime(20));
-    elements.add60mBtn.addEventListener('click', () => addTime(60));
 
     elements.lockControlsBtn.addEventListener('click', function () {
         elements.pinModal.style.display = "inline-block";
