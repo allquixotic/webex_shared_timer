@@ -25,25 +25,32 @@
 
         .collapsible {
             border: 1px solid #ccc;
-            padding: 0.5rem;
+            padding: 0.2rem;
             border-radius: 0.5rem;
             position: relative;
         }
 
         .collapse-arrow {
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
+            top: 0rem;
+            right: 0rem;
             cursor: pointer;
-        }
-
-        .collapsed .firstRow,
-        .collapsed #additionalButtons {
-            display: none;
+            display: flex !important;
         }
 
         .collapsed .collapse-arrow {
             transform: rotate(180deg);
+        }
+
+        #controlsContainer.collapsed {
+            width: 95% !important;
+            height: 10% !important;
+            padding: 0.5rem !important;
+        }
+
+        .collapsed .firstRow,
+        .collapsed #additionalButtons {
+            display: none !important;
         }
 
         .pulsating-colon {
@@ -64,7 +71,7 @@
         #sharedTimerContainer section:first-of-type {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: -0.25rem;
         }
 
         #sharedTimerContainer div {
@@ -80,15 +87,23 @@
             margin-top: -1.5rem;
         }
 
+        #controlsContainer {
+            margin-top: 0rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-bottom: 0rem !important;
+            margin-bottom: 0rem !important;
+        }
+
         #sharedTimerContainer input {
             text-align: center;
             font-size: 1.5rem;
             width: 5rem;
         }
 
-        .additionalButtons,
-        #sharedTimerContainer button {
-            margin-top: -0.5rem;
+        .arrow,
+        .controlButton {
+            /* margin-top: -0.5rem; */
             background: none;
             border: 1px solid darkgray;
             color: blue;
@@ -105,8 +120,8 @@
             /* border-radius: 50%; */
         }
 
-        #sharedTimerContainer div button:last-child {
-            margin-top: -1.25rem;
+        .downArrow {
+            margin-top: -1.25rem !important;
             /* Specifically adjust the margin for the down buttons */
         }
 
@@ -118,12 +133,13 @@
         #sharedTimerContainer section:last-of-type {
             display: flex;
             justify-content: center;
-            gap: 0.75rem;
+            column-gap: 0.5rem;
             /* Increased gap for larger buttons */
         }
 
         .additionalButtons {
             font-size: 1rem !important;
+            margin-top: 1rem !important;
         }
 
         .firstRow {
@@ -145,7 +161,7 @@
                 border: 1px solid lightgray;
                 background: darkgray;
                 /* border-radius: 50%; */
-                padding: 2px;
+                /* padding: 2px; */
             }
         }
 
@@ -223,37 +239,37 @@
         <div id="sharedTimerContainer">
             <section>
                 <div>
-                    <button class="arrow" id="minutesUp">&#9650;</button>
+                    <button class="arrow upArrow" id="minutesUp">&#9650;</button>
                     <input id="minutes" type="text" maxlength="3" value="00">
-                    <button class="arrow" id="minutesDown">&#9660;</button>
+                    <button class="arrow downArrow" id="minutesDown">&#9660;</button>
                 </div>
                 <span id="msColon" class="colon">:</span>
                 <div>
-                    <button class="arrow" id="secondsUp">&#9650;</button>
+                    <button class="arrow upArrow" id="secondsUp">&#9650;</button>
                     <input id="seconds" type="text" maxlength="2" value="00">
-                    <button class="arrow" id="secondsDown">&#9660;</button>
+                    <button class="arrow downArrow" id="secondsDown">&#9660;</button>
                 </div>
             </section>
             <div id="controlsContainer" class="collapsible">
                 <span id="collapseArrow" class="collapse-arrow">&#9650;</span>
                 <section class="firstRow">
-                    <button id="clearBtn" aria-label="Clear">
+                    <button class="controlButton" id="clearBtn" aria-label="Clear">
                         <img src="/clear.svg" alt="Clear Icon">
                     </button>
-                    <button id="playPauseBtn" aria-label="Play/Pause" data-running="false">
+                    <button class="controlButton" id="playPauseBtn" aria-label="Play/Pause" data-running="false">
                         <img id="playPauseIcon" src="/play.svg" alt="Play">
                     </button>
-                    <button id="resetBtn" aria-label="Reset">
+                    <button class="controlButton" id="resetBtn" aria-label="Reset">
                         <img src="/reset.svg" alt="Reset Icon">
                     </button>
-                    <button id="lockControlsBtn" aria-label="Lock/Unlock Controls">
+                    <button class="controlButton" id="lockControlsBtn" aria-label="Lock/Unlock Controls">
                         <img id="lockSymbolIcon" src="/open_lock.svg" alt="Unlocked">
                     </button>
                 </section>
                 <section id="additionalButtons">
-                    <button class="additionalButtons" id="add15mBtn">+15m</button>
-                    <button class="additionalButtons" id="add20mBtn">+20m</button>
-                    <button class="additionalButtons" id="add60mBtn">+60m</button>
+                    <button class="additionalButtons controlButton" id="add15mBtn">+15m</button>
+                    <button class="additionalButtons controlButton" id="add20mBtn">+20m</button>
+                    <button class="additionalButtons controlButton" id="add60mBtn">+60m</button>
                 </section>
             </div>
         </div>

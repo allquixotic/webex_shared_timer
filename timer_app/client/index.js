@@ -93,7 +93,8 @@ const elements = {};
 function setupElements() {
     ['playPauseIcon', 'playPauseBtn', 'alarmSound', 'msColon', 'minutes', 'seconds', 'lockControlsBtn', 'lockSymbolIcon', 'submitPin',
     'unlockForMe', 'unlockForAll', 'pinInput', 'pinError', 'pinModal', 'minutesUp', 'minutesDown', 'secondsUp',
-    'secondsDown', 'clearBtn', 'playPauseBtn', 'resetBtn', 'close', 'add15mBtn', 'add20mBtn', 'add60mBtn'].forEach((itm) => {
+    'secondsDown', 'clearBtn', 'playPauseBtn', 'resetBtn', 'close', 'add15mBtn', 'add20mBtn', 'add60mBtn', 'controlsContainer',
+    'collapseArrow'].forEach((itm) => {
         elements[itm] = document.getElementById(itm);
     })
 }
@@ -407,11 +408,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     socket.emit('get_timer', { sessionId: meetingID });
 
-    // Collapse functionality
-    const controlsContainer = document.getElementById('controlsContainer');
-    const collapseArrow = document.getElementById('collapseArrow');
-
-    collapseArrow.addEventListener('click', () => {
+    elements.collapseArrow.addEventListener('click', () => {
         controlsContainer.classList.toggle('collapsed');
     });
 });
