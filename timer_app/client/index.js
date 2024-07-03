@@ -167,7 +167,7 @@ function decrementClientTimer() {
         return;
     }
 
-    if (isRunning && currentMinutes === 0 && currentSeconds === 0) {
+    if (isRunning && currentHours === 0 && currentMinutes === 0 && currentSeconds === 0) {
         clearTimer(false);
     }
 }
