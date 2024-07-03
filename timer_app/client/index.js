@@ -83,6 +83,7 @@ function getSocket() {
 
 let arrowButtonsEnabled = true;
 let isRunning = false;
+let currentHours;
 let currentMinutes;
 let currentSeconds;
 let sessionLocks = {};
