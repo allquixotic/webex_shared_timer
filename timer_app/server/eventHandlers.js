@@ -194,6 +194,7 @@ const eventHandlers = {
                 } else {
                     session.timerState.hours--;
                 }
+                session.timerState.hours = value;
                 break;
                 session.timerState.hours = value;
                 break;
