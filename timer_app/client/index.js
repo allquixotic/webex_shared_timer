@@ -93,7 +93,7 @@ const elements = {};
 function setupElements() {
     ['playPauseIcon', 'playPauseBtn', 'alarmSound', 'msColon', 'minutes', 'seconds', 'lockControlsBtn', 'lockSymbolIcon', 'submitPin',
     'unlockForMe', 'unlockForAll', 'pinInput', 'pinError', 'pinModal', 'minutesUp', 'minutesDown', 'secondsUp',
-    'secondsDown', 'clearBtn', 'playPauseBtn', 'resetBtn', 'close', 'add15mBtn', 'add20mBtn', 'add60mBtn', 'controlsContainer',
+    'secondsDown', 'hoursUp', 'hoursDown', 'hours', 'clearBtn', 'playPauseBtn', 'resetBtn', 'close', 'add15mBtn', 'add20mBtn', 'add60mBtn', 'controlsContainer',
     'collapseArrow'].forEach((itm) => {
         elements[itm] = document.getElementById(itm);
     })
@@ -175,9 +175,11 @@ function startClientTimer() {
 
 function updateTimerDisplay(minutes, seconds) {
     console.log(`updateTimerDisplay called with minutes: ${minutes}, seconds: ${seconds}, isRunning: ${isRunning}`);
-    if (minutes !== null && seconds !== null) {
+    if (minutes !== null && seconds !== null && hours !== null) {
         let mps = minutes.toString().padStart(2, '0');
         let sps = seconds.toString().padStart(2, '0');
+        let hps = hours.toString().padStart(2, '0');
+        document.getElementById('hours').value = hps;
         document.getElementById('minutes').value = mps;
         document.getElementById('seconds').value = sps;
     }
@@ -195,6 +197,10 @@ function adjustTime(unit, direction) {
 function setTimerInput(unit, value) {
     console.log(`setTimerInput called with unit: ${unit}, value: ${value}`);
     socket.emit('set_timer', { unit: unit, value: value, sessionId: meetingID });
+}
+
+function setTimerInputHours() {
+    setTimerInput('hours', elements.hours.value);
 }
 
 function setTimerInputMinutes() {
@@ -380,6 +386,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         elements.pinModal.style.display = "none";
     });
     
+    elements.hoursUp.addEventListener('click', () => adjustTime('hours', 'up'));
+    elements.hoursDown.addEventListener('click', () => adjustTime('hours', 'down'));
+    elements.hours.addEventListener('input', () => setTimerInputHours());
+    elements.hours.addEventListener('keyup', (event) => handleInputKeyup(event, 'hours'));
     elements.minutesUp.addEventListener('click', () => adjustTime('minutes', 'up'));
     elements.minutesDown.addEventListener('click', () => adjustTime('minutes', 'down'));
     elements.minutes.addEventListener('input', () => setTimerInputMinutes());
