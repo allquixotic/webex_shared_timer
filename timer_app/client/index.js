@@ -155,9 +155,12 @@ function decrementClientTimer() {
         currentSeconds = 59;
     }
 
-    updateTimerDisplay(currentMinutes, currentSeconds);
+    updateTimerDisplay(currentHours, currentMinutes, currentSeconds);
 
     if (currentMinutes < 0) {
+        currentHours--;
+        currentMinutes = 59;
+    }
         currentMinutes = 0;
         currentSeconds = 0;
         clearTimer(false);
@@ -260,7 +263,7 @@ function stopClientSideTimer() {
 
 function clearTimer(do_emit = false) {
     console.log('clearTimer called');
-    updateTimerDisplay(0, 0);
+    updateTimerDisplay(0, 0, 0);
     if (do_emit) {
         socket.emit('clear_timer', { sessionId: meetingID });
     }
@@ -275,7 +278,8 @@ function addTime(minutesToAdd) {
         stopClientSideTimer();
     }
 
-    if(!currentMinutes)
+    if(!currentMinutes) currentMinutes = 0;
+    if(!currentHours) currentHours = 0;
         currentMinutes = 0;
 
     currentMinutes += minutesToAdd;
