@@ -174,8 +174,8 @@ function startClientTimer() {
     clientTimerInterval = setInterval(decrementClientTimer, 1000);
 }
 
-function updateTimerDisplay(minutes, seconds) {
-    console.log(`updateTimerDisplay called with minutes: ${minutes}, seconds: ${seconds}, isRunning: ${isRunning}`);
+function updateTimerDisplay(hours, minutes, seconds) {
+    console.log(`updateTimerDisplay called with hours: ${hours}, minutes: ${minutes}, seconds: ${seconds}, isRunning: ${isRunning}`);
     if (minutes !== null && seconds !== null && hours !== null) {
         let mps = minutes.toString().padStart(2, '0');
         let sps = seconds.toString().padStart(2, '0');
@@ -185,7 +185,7 @@ function updateTimerDisplay(minutes, seconds) {
         document.getElementById('seconds').value = sps;
     }
     setPlayingUI(isRunning);
-    console.log('Updating timer display:', minutes, seconds);
+    console.log('Updating timer display:', hours, minutes, seconds);
 }
 
 function adjustTime(unit, direction) {
@@ -331,15 +331,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             updateLockState(data.locked, lockedForMe);
 
             isRunning = sessionData.running;
+            currentHours = sessionData.hours;
             currentMinutes = sessionData.minutes;
             currentSeconds = sessionData.seconds;
-            updateTimerDisplay(currentMinutes, currentSeconds);
+            updateTimerDisplay(currentHours, currentMinutes, currentSeconds);
             if (sessionData.justFinished) {
                 playAlarmSound();
                 stopTimer(false);
             }
 
-            if (isRunning && (currentMinutes > 0 || currentSeconds > 0)) {
+            if (isRunning && (currentMinutes > 0 || currentSeconds > 0 || currentHours > 0)) {
                 startClientTimer();
             }
 

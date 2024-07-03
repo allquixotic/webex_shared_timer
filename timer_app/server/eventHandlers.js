@@ -17,6 +17,7 @@ function emitTimerUpdate(socket, sessionID, target, justFinished = false) {
         const dataToPush = {
             sessionId: sessionID,
             timerState: {
+                hours: grt.hours,
                 minutes: grt.minutes,
                 seconds: grt.seconds,
                 running: session.timerState.timeoutRef !== null,
@@ -187,6 +188,15 @@ const eventHandlers = {
         if (!session) return;
         session.previousTimerState.copyFrom(session.timerState);
         switch (unit) {
+            case 'hours':
+                if (direction === 'up') {
+                    session.timerState.hours++;
+                } else {
+                    session.timerState.hours--;
+                }
+                break;
+                session.timerState.hours = value;
+                break;
             case 'minutes':
                 session.timerState.minutes = value;
                 break;
@@ -208,7 +218,7 @@ const eventHandlers = {
             return;
         }
         const { unit, direction } = data;
-        const validUnits = ['minutes', 'seconds'];
+        const validUnits = ['minutes', 'seconds', 'hours'];
         const validDirections = ['up', 'down'];
 
         const isValidUnit = validUnits.includes(unit);
@@ -246,6 +256,13 @@ const eventHandlers = {
                     session.timerState.minutes++;
                 } else {
                     session.timerState.minutes--;
+                }
+                break;
+            case 'hours':
+                if (direction === 'up') {
+                    session.timerState.hours++;
+                } else {
+                    session.timerState.hours--;
                 }
                 break;
             default:

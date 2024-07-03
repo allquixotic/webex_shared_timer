@@ -16,6 +16,7 @@ class TimerState {
         /** @type {Set<string>} */
         this.punishedSIDs = new Set();
         this.pin = null;
+        this.hours = 0;
         this.minutes = 0;
         this.seconds = 0;
     }
@@ -41,11 +42,12 @@ class TimerState {
 
     getRemainingTime() {
         if (!this.endTime) {
-            return { minutes: this.minutes, seconds: this.seconds };
+            return { hours: this.hours, minutes: this.minutes, seconds: this.seconds };
         }
         let remainingTime = Math.max(this.endTime - Date.now(), 0);
         return {
-            minutes: Math.floor(remainingTime / 60000),
+            hours: Math.floor(remainingTime / 3600000),
+            minutes: Math.floor((remainingTime % 3600000) / 60000),
             seconds: Math.floor((remainingTime % 60000) / 1000)
         };
     }
@@ -61,6 +63,7 @@ class TimerState {
         }
         if (this.endTime) {
             let grt = this.getRemainingTime();
+            this.hours = grt.hours;
             this.minutes = grt.minutes;
             this.seconds = grt.seconds;
         }
