@@ -155,11 +155,10 @@ function decrementClientTimer() {
         currentSeconds = 59;
     }
 
-    if (currentMinutes < 0) {
+    if (currentMinutes < 0 && currentHours > 0) {
         currentHours--;
         currentMinutes = 59;
-    }
-    else {
+    } else if (currentMinutes < 0) {
         currentMinutes = 0;
         currentSeconds = 0;
         clearTimer(false);
