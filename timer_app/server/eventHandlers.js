@@ -195,8 +195,11 @@ const eventHandlers = {
                     session.timerState.hours--;
                 }
                 session.timerState.hours = value;
-                break;
                 session.timerState.hours = value;
+                while (session.timerState.minutes >= 60) {
+                    session.timerState.minutes -= 60;
+                    session.timerState.hours++;
+                }
                 break;
             case 'minutes':
                 session.timerState.minutes = value;

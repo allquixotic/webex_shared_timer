@@ -278,13 +278,20 @@ function addTime(minutesToAdd) {
         stopClientSideTimer();
     }
 
-    if(!currentMinutes) currentMinutes = 0;
-    if(!currentHours) currentHours = 0;
-        currentMinutes = 0;
+    if (!currentMinutes) currentMinutes = 0;
+    if (!currentHours) currentHours = 0;
 
     currentMinutes += minutesToAdd;
+
+    while (currentMinutes >= 60) {
+        currentMinutes -= 60;
+        currentHours++;
+    }
+
     setTimerInput('minutes', currentMinutes);
-    elements.minutes.value = currentMinutes;
+    setTimerInput('hours', currentHours);
+    elements.minutes.value = currentMinutes.toString().padStart(2, '0');
+    elements.hours.value = currentHours.toString().padStart(2, '0');
 
     if (isRunning) {
         startClientTimer();
