@@ -189,12 +189,6 @@ const eventHandlers = {
         session.previousTimerState.copyFrom(session.timerState);
         switch (unit) {
             case 'hours':
-                if (direction === 'up') {
-                    session.timerState.hours++;
-                } else {
-                    session.timerState.hours--;
-                }
-                session.timerState.hours = value;
                 session.timerState.hours = value;
                 while (session.timerState.minutes >= 60) {
                     session.timerState.minutes -= 60;

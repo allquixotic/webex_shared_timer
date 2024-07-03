@@ -30,7 +30,7 @@ class TimerState {
     start(io, sessionID) {
         if (!this.timeoutRef) {
             const now = Date.now();
-            this.endTime = new Date(now + this.minutes * 60000 + this.seconds * 1000);
+            this.endTime = new Date(now + this.hours * 3600000 + this.minutes * 60000 + this.seconds * 1000);
             this.timeoutRef = setTimeout(() => this.tick(io, sessionID), this.endTime - now);
         }
     }

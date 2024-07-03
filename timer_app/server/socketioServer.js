@@ -32,6 +32,7 @@ io.on('connection', (socket) => {
             sessions.set(sessionID, session);
         }
         session.clients.add(socket.id);
+        session.hours = 0;
         socket.join(sessionID);
         socket.join(socket.id);
         socket.data.sessionID = sessionID;
